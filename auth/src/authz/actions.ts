@@ -1,0 +1,17 @@
+export enum Action {
+  Manage = "manage",
+  Create = "create",
+  Read = "read",
+  Update = "update",
+  Delete = "delete",
+  Block = "block",
+  Unblock = "unblock",
+  Approve = "approve",
+  Freeze = "freeze",
+  Unfreeze = "unfreeze",
+  Flag = "flag",
+  Unflag = "unflag",
+  Promote = "promote",
+  Demote = "demote",
+  Restore = "restore",
+}

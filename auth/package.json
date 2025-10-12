@@ -21,6 +21,8 @@
     ]
   },
   "dependencies": {
+    "@casl/ability": "6.7.3",
+    "@casl/mongoose": "8.0.3",
     "express": "5.1.0",
     "mongoose": "^8.19.1"
   },
