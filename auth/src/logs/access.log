@@ -1,0 +1,10 @@
+{"level":"info","message":"Running in Production mode. Logs are going to access.log and console."}
+{"level":"info","message":"::1 - - [12/Oct/2025:08:55:55 +0000] \"POST / HTTP/1.1\" 404 140 \"-\" \"PostmanRuntime/7.48.0\""}
+{"level":"info","message":"::1 - - [12/Oct/2025:08:56:00 +0000] \"GET / HTTP/1.1\" 404 139 \"-\" \"PostmanRuntime/7.48.0\""}
+{"level":"info","message":"Running in Production mode. Logs are going to access.log and console."}
+{"level":"info","message":"Running in Production mode. Logs are going to access.log and console."}
+{"level":"info","message":"Running in Production mode. Logs are going to access.log and console."}
+{"level":"info","message":"Running in Production mode. Logs are going to access.log and console."}
+{"level":"info","message":"Running in Production mode. Logs are going to access.log and console."}
+{"level":"info","message":"Running in Production mode. Logs are going to access.log and console."}
+{"level":"info","message":"Running in Production mode. Logs are going to access.log and console."}
