@@ -1,41 +1,58 @@
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-import { Request, Response, NextFunction } from "express";
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
+import type { Request, Response, NextFunction, RequestHandler } from "express";
 import xssFilters from "xss-filters";
+// Recommended (maintained) alternative: `import xss from "xss";`
+// then replace `xssFilters.inHTMLData(str)` with `xss(str)`.
 
-/**
- * Recursively sanitize an object by encoding its string values.
- * @param obj - The object to sanitize
- * @returns A sanitized object
- */
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const DANGEROUS_KEYS = new Set(["__proto__", "constructor", "prototype"]);
 
-const sanitizeObject = (obj: any): any => {
-  if (!obj || typeof obj !== "object") return obj;
+function sanitizeValue(v: unknown): unknown {
+  if (typeof v === "string") {
+    // encode potentially dangerous characters for HTML contexts
+    return xssFilters.inHTMLData(v);
+    // If you switch to `xss` library: return xss(v);
+  }
+  if (Array.isArray(v)) {
+    for (let i = 0; i < v.length; i++) v[i] = sanitizeValue(v[i]);
+    return v;
+  }
+  // Ignore null, dates, buffers, etc.
+  if (!v || typeof v !== "object") return v;
+  if (
+    v instanceof Date ||
+    (typeof Buffer !== "undefined" && Buffer.isBuffer(v))
+  )
+    return v;
 
-  Object.keys(obj).forEach((key) => {
-    if (typeof obj[key] === "string") {
-      obj[key] = xssFilters.inHTMLData(obj[key]); // Sanitize string input
-    } else if (typeof obj[key] === "object") {
-      obj[key] = sanitizeObject(obj[key]); // Recursively sanitize nested objects
+  // Plain object (including Express's ParsedQs). Mutate in place.
+  for (const key of Object.keys(v as Record<string, unknown>)) {
+    if (DANGEROUS_KEYS.has(key)) {
+      // prevent prototype pollution
+      delete (v as Record<string, unknown>)[key];
+      continue;
     }
-  });
+    const current = (v as Record<string, unknown>)[key];
+    (v as Record<string, unknown>)[key] = sanitizeValue(current);
+  }
+  return v;
+}
 
-  return obj;
-};
-
-/**
- * Express middleware to sanitize incoming request data.
- */
-const xssSanitizer = (
+export const xssSanitizer: RequestHandler = (
   req: Request,
-  res: Response,
+  _res: Response,
   next: NextFunction,
-): void => {
-  req.body = sanitizeObject(req.body);
-  req.query = sanitizeObject(req.query);
-  req.params = sanitizeObject(req.params);
-  next();
+) => {
+  try {
+    if (req.body) sanitizeValue(req.body); // do not reassign: keep original object
+    if (req.query) sanitizeValue(req.query as any);
+    if (req.params) sanitizeValue(req.params as any);
+    next();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  } catch (err) {
+    // If anything goes sideways, don’t 500 the health check:
+    // just skip sanitization for this request.
+    // You can also log the error with your logger here.
+    next();
+  }
 };
-
-export { xssSanitizer };

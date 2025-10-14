@@ -6,6 +6,11 @@ import globalErrorHandler from "./middlewere/globalErrorHandler";
 import { envs } from "./config";
 import cors from "cors";
 import { AppError } from "./utils/appError";
+import helmet from "helmet";
+import mongoSanitize from "express-mongo-sanitize";
+import { xssSanitizer } from "./utils/xss";
+import hpp from "hpp";
+import cookieParser from "cookie-parser";
 
 const nodeEnv = envs.node_env || "development";
 
@@ -42,6 +47,28 @@ app.use(
       }
       return void callback(null, true);
     },
+  }),
+);
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// parse cookies
+app.use(cookieParser());
+
+// Set security HTTP headers
+app.use(helmet());
+
+// data sanitization against NoSQL query injection
+// app.use(mongoSanitize());
+
+// data sanitization against XSS
+app.use(xssSanitizer);
+
+// prevent parameter pollution
+app.use(
+  hpp({
+    whitelist: [],
   }),
 );
 

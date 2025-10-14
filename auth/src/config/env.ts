@@ -1,4 +1,8 @@
 import { IAppConfig, NodeEnv } from "../types";
+import { config } from "dotenv";
+import path from "path";
+
+config({ path: path.resolve(__dirname, "../.env") });
 
 type EnvValue = string | undefined;
 
