@@ -53,14 +53,24 @@ app.use(
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use((req, _res, next) => {
+  Object.defineProperty(req, "query", {
+    ...Object.getOwnPropertyDescriptor(req, "query"),
+    value: req.query,
+    writable: true,
+  });
+
+  next();
+});
+
+// data sanitization against NoSQL query injection
+app.use(mongoSanitize());
+
 // parse cookies
 app.use(cookieParser());
 
 // Set security HTTP headers
 app.use(helmet());
-
-// data sanitization against NoSQL query injection
-// app.use(mongoSanitize());
 
 // data sanitization against XSS
 app.use(xssSanitizer);
