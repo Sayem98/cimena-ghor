@@ -1,7 +1,18 @@
 import { app } from "./app";
+import { envs } from "./config";
 
-const port = 3000;
+const server = app.listen(envs.port, () => {
+  console.log(
+    `⚡️[server]: Server is running at http://localhost:${envs.port}`,
+  );
+});
 
-app.listen(port, () => {
-  console.log(`⚡️[server]: Server is running at http://localhost:${port}`);
+process.on("unhandledRejection", () => {
+  console.log("unhandledRejection detected, shutting down...");
+  server?.close(() => process.exit(1));
+});
+
+process.on("uncaughtException", () => {
+  console.log("uncaughtException detected, shutting down...");
+  process.exit(1);
 });
