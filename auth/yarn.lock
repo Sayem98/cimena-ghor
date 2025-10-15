@@ -2225,6 +2225,7 @@ __metadata:
     "@types/xss-filters": "npm:^1"
     "@typescript-eslint/eslint-plugin": "npm:8.46.0"
     "@typescript-eslint/parser": "npm:8.46.0"
+    bcryptjs: "npm:3.0.2"
     cookie-parser: "npm:1.4.7"
     cors: "npm:2.8.5"
     dotenv: "npm:17.2.3"
@@ -2236,8 +2237,10 @@ __metadata:
     helmet: "npm:8.1.0"
     hpp: "npm:0.2.3"
     jest: "npm:30.2.0"
+    mongodb: "npm:6.20.0"
     mongodb-memory-server: "npm:10.2.3"
     mongoose: "npm:^8.19.1"
+    mongoose-paginate-v2: "npm:1.9.1"
     morgan: "npm:1.10.1"
     prettier: "npm:3.6.2"
     supertest: "npm:7.1.4"
@@ -2368,6 +2371,15 @@ __metadata:
   dependencies:
     safe-buffer: "npm:5.1.2"
   checksum: 10c0/05f56db3a0fc31c89c86b605231e32ee143fb6ae38dc60616bc0970ae6a0f034172def99e69d3aed0e2c9e7cac84e2d63bc51a0b5ff6ab5fc8808cc8b29923c1
+  languageName: node
+  linkType: hard
+
+"bcryptjs@npm:3.0.2":
+  version: 3.0.2
+  resolution: "bcryptjs@npm:3.0.2"
+  bin:
+    bcrypt: bin/bcrypt
+  checksum: 10c0/a0923cac99f83e913f8f4e4f42df6a27c6593b24d509900331d1280c4050b1544e602a0ac67b43f7bb5c969991c3ed77fd72f19b7dc873be8ee794da3d925c7e
   languageName: node
   linkType: hard
 
@@ -5077,7 +5089,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mongodb@npm:^6.9.0, mongodb@npm:~6.20.0":
+"mongodb@npm:6.20.0, mongodb@npm:^6.9.0, mongodb@npm:~6.20.0":
   version: 6.20.0
   resolution: "mongodb@npm:6.20.0"
   dependencies:
@@ -5108,6 +5120,26 @@ __metadata:
     socks:
       optional: true
   checksum: 10c0/a42d5a04cd2dc195c80293cdc2deb8efd1887559f3a37ffa42bade0d7709a980b6655bf38dd3e774dd68ad063a2c0c577fca9d5bcae1cafa2582083cf39e1e6c
+  languageName: node
+  linkType: hard
+
+"mongoose-lean-virtuals@npm:^1.1.0":
+  version: 1.1.1
+  resolution: "mongoose-lean-virtuals@npm:1.1.1"
+  dependencies:
+    mpath: "npm:^0.8.4"
+  peerDependencies:
+    mongoose: ">=5.11.10"
+  checksum: 10c0/e5a04eb895db60f9e3d486c2692d956d6439ca122ef86b7e9874a72178beab6536f105a52c2ba8daa4b0bcf9df8ce6be0d6b3dfce938544d7dc7d09b8aacd34e
+  languageName: node
+  linkType: hard
+
+"mongoose-paginate-v2@npm:1.9.1":
+  version: 1.9.1
+  resolution: "mongoose-paginate-v2@npm:1.9.1"
+  dependencies:
+    mongoose-lean-virtuals: "npm:^1.1.0"
+  checksum: 10c0/39404ff3f5d7b24d10a22ff34e1d1b5270f536549c010a98bf9832ec3f4fbd56d48d22e23d88eba7c32c6fb246fecf79e8818b33bf8a0d712b6e175f7f047d6f
   languageName: node
   linkType: hard
 
@@ -5143,6 +5175,13 @@ __metadata:
   version: 0.9.0
   resolution: "mpath@npm:0.9.0"
   checksum: 10c0/ac1a77ebbd44567f122fb3026c9647836215d5bb75b54064d1f3d998125644fe7a775b89441b94d4d60f43ad9638a12d830a9e29f36116e93b8cdfd111816e8f
+  languageName: node
+  linkType: hard
+
+"mpath@npm:^0.8.4":
+  version: 0.8.4
+  resolution: "mpath@npm:0.8.4"
+  checksum: 10c0/ebec4657d01c3b51e63dac31a0d21c14067b000f5f8a9240619f67f0dea1d64da972209da11ceff13f7ecb0b76be61ea87313ba3c5bf5cd3f6c506b0f977793f
   languageName: node
   linkType: hard
 
