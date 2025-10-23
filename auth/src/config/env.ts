@@ -64,7 +64,7 @@ export const envs: IAppConfig = {
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   node_env: getOptionalEnv("NODE_ENV", "development") as NodeEnv,
   port: getAsInt("PORT", 5002),
-  // database_url: getRequiredEnv("DATABASE_URL"),
+  database_url: getRequiredEnv("DATABASE_URL"),
 
   // // --- Authentication ---
   // bcrypt_salt_rounds: getAsInt("BCRYPT_SALT_ROUNDS", 10),

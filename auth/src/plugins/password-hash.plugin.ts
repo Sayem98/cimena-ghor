@@ -1,7 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 /* eslint-disable @typescript-eslint/consistent-type-assertions */
 import { Schema } from "mongoose";
 import bcrypt from "bcryptjs";
@@ -67,6 +63,7 @@ const passwordHashPlugin = <T extends IPasswordHashDoc>(
     password: string,
   ): Promise<boolean> {
     const account = this as T;
+    // eslint-disable-next-line @typescript-eslint/return-await
     return await bcrypt.compare(password, account.password);
   };
 

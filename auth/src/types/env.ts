@@ -3,7 +3,7 @@ export type NodeEnv = "development" | "production";
 export type IAppConfig = {
   node_env: NodeEnv;
   port: number;
-  // database_url: string;
+  database_url: string;
   // bcrypt_salt_rounds: number;
   // default_password: string;
 
